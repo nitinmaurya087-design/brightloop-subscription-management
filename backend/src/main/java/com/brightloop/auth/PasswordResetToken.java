@@ -1,0 +1,4 @@
+package com.brightloop.auth;
+import jakarta.persistence.*;import java.time.Instant;
+@Entity @Table(name="password_reset_tokens") public class PasswordResetToken{
+ @Id @GeneratedValue(strategy=GenerationType.IDENTITY) Long id;@Column(name="user_id",nullable=false) Long userId;@Column(name="token_hash",nullable=false,unique=true,length=64) String tokenHash;@Column(name="expires_at",nullable=false) Instant expiresAt;@Column(nullable=false) boolean consumed=false;@Column(name="created_at",nullable=false,updatable=false) Instant createdAt=Instant.now();protected PasswordResetToken(){}public PasswordResetToken(Long userId,String hash,Instant expiry){this.userId=userId;tokenHash=hash;expiresAt=expiry;}public Long getUserId(){return userId;}public boolean valid(){return !consumed&&Instant.now().isBefore(expiresAt);}public void consume(){consumed=true;}}

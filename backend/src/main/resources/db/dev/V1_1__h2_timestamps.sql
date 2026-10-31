@@ -1,0 +1,1 @@
+-- Dev-only compatibility migration. Schema is shared with the MySQL profile.

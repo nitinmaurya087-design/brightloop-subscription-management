@@ -1,0 +1,6 @@
+package com.brightloop.plan;
+import jakarta.validation.constraints.*;import java.math.BigDecimal;import java.time.LocalDate;
+public final class PlanDtos {private PlanDtos(){}
+ public record Request(@NotNull Long productId,@NotBlank @Size(max=160) String name,String description,@NotNull @DecimalMin("0.00") BigDecimal billingPrice,@NotNull BillingFrequency billingFrequency,@Min(1) int minimumQuantity,LocalDate availableFrom,LocalDate availableUntil,boolean autoCloseOnExpiry,boolean allowEarlyClosure,boolean allowPause,boolean allowRenewal,@Pattern(regexp="ACTIVE|ARCHIVED") String status){}
+ public record Response(Long id,Long productId,String productName,String name,String description,BigDecimal billingPrice,BillingFrequency billingFrequency,int minimumQuantity,LocalDate availableFrom,LocalDate availableUntil,boolean autoCloseOnExpiry,boolean allowEarlyClosure,boolean allowPause,boolean allowRenewal,String status){public static Response of(Plan p){return new Response(p.getId(),p.getProduct().getId(),p.getProduct().getName(),p.getName(),p.getDescription(),p.getBillingPrice(),p.getBillingFrequency(),p.getMinimumQuantity(),p.getAvailableFrom(),p.getAvailableUntil(),p.isAutoCloseOnExpiry(),p.isAllowEarlyClosure(),p.isAllowPause(),p.isAllowRenewal(),p.getStatus());}}
+}

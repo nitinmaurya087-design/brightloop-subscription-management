@@ -1,0 +1,1 @@
+package com.brightloop.notification;import org.springframework.data.jpa.repository.JpaRepository;public interface NotificationRepository extends JpaRepository<Notification,Long>{boolean existsByEventKey(String eventKey);java.util.List<Notification> findTop50ByOrderByCreatedAtDesc();}
